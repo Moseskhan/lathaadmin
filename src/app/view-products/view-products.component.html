@@ -1,0 +1,58 @@
+
+<div class="container">
+<div class="card">
+  <div class="card-body">
+    <div class="card">
+<div class="card-body">
+<h5>List Of All Products</h5>
+</div>
+    </div>
+      <table class="table table-striped">
+          <thead>
+            <tr>
+                <th>Name</th>
+                <th>SKU</th>
+                <th>Display Price</th>
+                <th>Units In Stock</th>
+                <th>Ordered</th>
+            </tr>
+          </thead>
+      
+          <tbody>
+            <tr *ngFor="let product of productList | async">
+              <td>
+                  {{product.data.productName}}
+              </td>
+              <td>
+        {{product.data.SKU}}
+              </td>
+              <td>
+      {{product.data.displayPrice}}
+              </td>
+              <td>
+                  {{product.data.unitsInStock}}
+              </td>
+              <td>
+                {{product.data.unitsOnOrder}}
+                </td>
+                <td>
+                    <a class="btn-floating btn-small waves-effect waves-light blue" (click)="editProduct(product.id)"><i class="material-icons">mode_edit</i></a>
+             
+                </td>
+                <td>
+                    <a class="btn-floating btn-small waves-effect waves-light red" (click)="deleteProduct(product)"><i class="material-icons">delete</i></a>
+             
+                </td>
+                <td>
+                    <a class="btn-floating btn-small waves-effect waves-light green tooltipped" (click)="viewProduct(product)" data-position="bottom" data-tooltip="I am a tooltip"><i class="material-icons">details</i></a>
+             
+                </td>
+            </tr>
+            
+          </tbody>
+        </table>
+      
+  </div>
+
+</div>
+</div>

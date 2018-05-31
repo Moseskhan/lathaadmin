@@ -1,0 +1,127 @@
+
+
+
+<div class="container">
+    
+<div class="card">
+  <div class="card-content">
+     
+      <div class="dropzone"  
+      dropZone
+      (hovered)="toggleHover($event)"
+      (dropped)="startUpload($event)"
+      [class.hovering]="isHovering">
+      
+      
+      
+      
+      
+      <h3>Upload Product Photos Here</h3>
+      
+      <div class="file">
+         <label class="file-label">
+      
+      
+      
+      
+         <input class="btn btn-primary" type="file" (change)="startUpload($event.target.files,unitSize)" >
+      
+        
+      
+           
+         </label>
+         
+       </div>
+       
+      </div>
+      
+      
+      <div class="col-s12-m12">
+        
+            <div class="form-group">
+                    <label>Select Product Size To bind a Product size to an Image</label>
+                    <select class="form-control" #unitSize  >
+                             
+                        <option *ngFor="let size of ((productDetails | async)?.availableSizes)"
+                        [value]="size.unit"
+                        >{{size.unit}}</option>
+                       
+                      </select>
+                           </div> 
+
+
+                           <div *ngIf="percentage | async as pct">
+         
+                                <progress class="progress is-info" 
+                                       [value]="pct" 
+                                       max="100">        
+                                </progress>
+                                
+                                {{ pct | number }}%
+                                
+                                </div>
+                                <div *ngIf="(snapshot | async) as snap">
+                                        {{ snap.bytesTransferred  }} of {{ snap.totalBytes  }} 
+                                        
+                                        <div class="row">
+
+
+                                        
+                                        <div *ngIf="downloadURL | async as url" class="col-md-6 col-sm-12">
+                                        
+                                        <img [src]="url"><br>
+                                        <a [href]="url" target="_blank" rel="noopener">View this Uploaded Image</a>
+                                        </div>
+                                    
+                                    </div>
+                                        <hr>
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        <button (click)="task.pause()" class=" btn waves-effect waves-light btn-small orange" [disabled]="!isActive(snap)">Pause</button>
+                                        <button (click)="task.cancel()" class="btn waves-effect waves-light btn-small red" [disabled]="!isActive(snap)">Cancel</button>
+                                        <button (click)="task.resume()" class="btn waves-effect waves-light btn-small green"   [disabled]="!(snap?.state === 'paused')">Resume</button>
+                                        
+                                        
+                                        </div>
+               
+             </div>  
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="card">
+          <div class="card-content">
+          <p>Uploaded Images</p>
+          </div>
+                </div>
+      <div class="row">
+<div *ngFor="let url of photoUrlsObject | async" class="col-md-6 col-sm-12" >
+        
+<img [src]="url.data.path" class="responsive-img rounded" >
+<p>{{url.data.productUnitSize}}</p>
+<button class="btn btn-danger btn-sm" (click)="deleteImage(url.id)">
+Remove <span class="fa fa-close"></span>
+</button>
+      </div>
+      </div>
+      
+      
+      </div>
+      <div class="container">
+          <button class="btn btn-primary" (click)="previewProduct()">Finish&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></button>
+      </div>
+      <br><br>
+  </div>
+
+
+</div>
+

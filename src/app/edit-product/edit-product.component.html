@@ -1,0 +1,199 @@
+
+<div class="container">
+   
+    <div   class="card">
+        <div class="card-body">
+            
+          <h5>Edit {{productName.value}} Details </h5>
+            <h5 *ngIf="form.errors" class="helper-text">Invalid Details, Please fill all the required Details</h5> 
+        </div>
+
+     </div>
+   </div>
+   
+  
+   <form [formGroup]="form" (ngSubmit)="updateProduct()">
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+      
+            
+              
+                 
+
+                <div class="row">
+                   
+                        
+                    
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label for="first_name">Product Name</label>
+                        <input  formControlName="productName" type="text" class="form-control">
+                        
+                       <div *ngIf="productName.touched && productName.invalid" class="alert alert-warning">
+                           <div class="helper-text" *ngIf="productName.errors.required">Product Name is a mandatory field</div>
+                           <div class="helper-text" *ngIf="productName.errors.minlength">Product Name cant be less than 5 characters</div>
+                     
+                        </div> 
+                      </div>
+                      <div class="form-group col-md-6 col-sm-12">
+                          <label for="">SKU</label>
+                        <input  type="text" formControlName="SKU" class="form-control">
+                        
+                          <div *ngIf="SKU.touched && SKU.invalid" >
+                             <div class="helper-text" *ngIf="SKU.errors.required">SKU is a required field</div>
+                             <div class="helper-text" *ngIf="SKU.errors.minlength">SKU has a minimum length of 6 characters</div>
+                          </div>
+                      </div>
+                      <div class="input-field col-md-12 col-sm-12">
+                        <textarea  class="form-control" formControlName="productDescription"></textarea>
+                        <label for="first_name">Product Description</label>
+                        <div *ngIf="productDescription.touched && productDescription.invalid">
+                                <div class="helper-text" *ngIf="productDescription.errors.required">product Description is a mandatory field</div>
+                                <div class="helper-text" *ngIf="productDescription.errors.minlength">product Description must be of  minimum length of 20 characters</div>
+                             </div>
+                      </div>
+                      <div class="card col-md-12 col-sm-12">
+                          <div class="card-body">
+                           Select Product Category Here
+
+                           <div class="form-group col-md-12 col-sm-12">
+                              <select formControlName="categoryID" class="form form-control">
+                                <option value="" disabled selected>Chooses Category Here</option>
+                                
+                                <option *ngFor="let product of (productCategories | async)" [value]="product.data.categoryID">{{product.data.categoryName}}</option>
+                                
+                              </select>
+                              
+                            </div> 
+                          </div>
+
+                      </div>
+                      
+                          
+                            
+                                  <br>   
+                    
+                    <div class="form-group col-md-6 col-sm-12">
+                      <br>
+                      <label for="">Product Display Price</label>
+                        <input  type="text" formControlName="displayPrice" class="form-control">
+                       
+                          <div *ngIf="displayPrice.touched && displayPrice.invalid">
+                             <div class="helper-text" *ngIf="displayPrice.errors.required">Display Price is a required field</div>
+                             <div class="helper-text" *ngIf="displayPrice.errors.validateNumeric">Display Price must be currency/numeric</div>
+                          </div>
+                    </div>
+                    <div class="card col-md-12 col-sm-12">
+                            <div class="card-body row">
+                            <div class="col-md-12 col-sm-12">
+                                <h5 class="card-title">Add Product Sizes and The Prices</h5> 
+                            </div>
+                            
+                            <div class="form-group col-md-5 col-sm-5">
+                                <label for="">Unit Size</label>
+                                    <input  type="text"  class="form-control" #unitsize>
+                                    
+            
+                                  </div>
+                                  <div class="form-group col-md-5 col-sm-5">
+                                    <label for="">Price Per Unit</label>
+                                        <input  type="text"  class="form-control" #priceperunit > 
+                                        
+                
+                                  </div>
+                                  <div class=" col-md-2 col-sm-2">
+                                    <br>
+                                        <button type="button" class="btn btn-primary" (click)="addSizes(unitsize, priceperunit)"><i class="fa fa-plus-circle"></i></button>
+                
+                                  </div>
+                                  <div class="col-md-12 col-sm-12"  formArrayName="availableSizes">
+                                        <ul class="list-group" *ngFor="let size of sizes.controls">
+<li class="list-group-item" (click)="removeSizes(size)">{{size.value.unit }}
+    <span class="badge badge-primary badge-pill pull-right">${{size.value.price}}</span>
+</li>               
+                                        </ul>
+                                  </div></div>
+                        </div>
+                    
+                    
+                          
+
+                          <div class="form-group col-md-6 col-sm-12">
+                            <label for="">Units In Stock</label>
+                                <input  type="text" formControlName="unitsInStock" class="form-control">
+                                
+                                <div *ngIf="unitsInStock.touched && unitsInStock.invalid">
+                                        <div class="helper-text" *ngIf="unitsInStock.errors.required">Units In Stock  is a mandatory field</div>
+                                        <div class="helper-text" *ngIf="unitsInStock.errors.validateNumeric">Units In Stock Must be numeric</div>
+                                     </div>
+                              </div>
+                                 <div class="form-group col-md-6 col-sm-12">
+                                     <br><br>
+                                  
+                                        <div class="switch">
+                                                <label>
+                                                  Available For Sale
+                                                  <input type="checkbox" formControlName="productAvailable">
+                                                  
+                                                 
+                                                </label>
+                                              </div>
+                                             
+                                 </div>
+                                 
+                                 <div class="form-group col-md-6 col-sm-12">
+                                    <label for="">Discount (%)</label>
+                                        <input  type="text" formControlName="discount" class="form-control" >
+                                        
+                                        <div *ngIf="discount.touched && discount.invalid">
+                                                <div class="helper-text" *ngIf="discount.errors.required">Discount is a mandatory field</div>
+                                                <div class="helper-text" *ngIf="discount.errors.validateNumeric">Discount  Must be numeric </div>
+                                             </div>
+                                      </div>
+                                         <div class="form-group col-md-6 col-sm-12">
+                                             <br>
+                                             <br>
+                                                <div class="switch">
+                                                        <label>
+                                                          Discount Available
+                                                          <input type="checkbox" formControlName="discountAvailable">
+                                                          
+                                                        </label>
+                                                      </div>
+                                         </div>
+                                           
+                                         <div class="form-group col-md-6 col-sm-12">
+                                                <h5>Specify Product Ranking Here</h5>
+                                             
+                                                <p class="range-field">
+                                                        <input type="range" formControlName="ranking" min="0" max="10" class="form-control" />
+                                                      </p>
+                                              </div>
+
+
+                                              <div class="col-md-12 col-sm-12">
+                                                  <hr class="green">
+                                                  <div class="helper-text">
+                                                    <p  *ngIf="form.errors" > Invalid Form Details, Please fill all the fields correctly</p>
+                                                  
+                                                  </div>
+<button type="submit" class="btn btn-primary"> Next Update Photos <i class="fa fa-arrow-right"></i></button>
+<button type="button" class="btn btn-warning push-right" (click)="cancelEdit()"> Cancel &nbsp;<i class="fa fa-close"></i></button>
+                                              </div>
+                                         
+                                         
+                          
+                  
+                </div>
+        </div>
+      
+      
+      </div>
+
+</div>
+</form>
+
+
+
+
+

@@ -1,0 +1,67 @@
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+          Add Product Category
+        </div>
+        <div class="card-body">
+            <form [formGroup]="formCategories" (ngSubmit)="postCategory()">
+                <div class="form-group">
+                  <label for="">Category Name</label>
+                  <input type="text" class="form-control" formControlName="categoryName" placeholder="product Category Name">
+                </div>
+                <div class="form-group">
+                  <label for="">Image Url</label>
+                  <input type="text" class="form-control" formControlName="imageUrl" placeholder="product Image Url">
+                </div>
+                <div class="text-danger" *ngIf="formCategories.errors">
+                     <p>Please fill all the fields correctly</p>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary">Add New Category <span class="fa fa-plus"></span></button>
+                </div>
+              </form>
+        </div>
+      </div><br>
+      <div class="card">
+          <div class="card-header">
+            Product Categories
+          </div>
+          <div class="card-body">
+            <table class="table table-striped table-bordered">
+              <tr>
+                <th>
+                  Category Name
+                </th>
+                <th>
+             Change Category Name
+                </th>
+                <th>
+
+                </th>
+              </tr>
+              <tr *ngFor="let product of (productCategories | async)">
+                <td>
+                    {{product.data.categoryName}}
+                </td>
+                <td>
+                      <div class="form inline">
+                      <label class="sr-only" for="inlineFormInput">Name</label>
+                      <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" #categoryName placeholder="New Category Name">
+                      <br>
+                      <button class="btn btn-rounded btn-primary btn-sm" (click)="editCategories(product.id,categoryName)"><span class="fa fa-save"></span></button>
+                
+                  </div>
+                </td>
+                <td>
+                    <button class="btn btn-rounded btn-danger" (click)="deleteCategories(product.id)"><span class="fa fa-trash"></span></button>
+                  </td>
+              </tr>
+            </table>
+         
+
+          </div></div>
+</div>
+</div>
+</div>

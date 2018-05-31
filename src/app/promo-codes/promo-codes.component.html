@@ -1,0 +1,36 @@
+<div class="container">
+<div class="row">
+  <div class="col-md-12">
+      <div class="card">
+          <div class="card-header">
+            Add Product Category
+          </div>
+          <div class="card-body">
+              <form [formGroup]="formPromoCode" (ngSubmit)="postPromoCode()">
+                  <div class="form-group">
+                    <label for="">Promo Code</label>
+                    <input type="text" class="form-control" formControlName="promoCode" placeholder="promoCode">
+                  </div>
+                  <div class="form-group">
+                      <label for="">Amount to Deduct from Total Sale</label>
+                      <input type="text" class="form-control" formControlName="amount" placeholder="Amount to Deduct">
+                  </div>
+                  <div class="text-danger" *ngIf="formPromoCode.errors">
+                       <p>Please fill all the fields correctly</p>
+                  </div>
+                  <div class="alert alert-danger" role="alert" *ngIf="postPromoStatus==false">
+                      <strong></strong>  You have successfully added new Promo Code {{formPromoCode.value.promoCode}} 
+                    </div>
+                  <div class="alert alert-success" role="alert" *ngIf="postPromoStatus==false">
+                      <strong></strong> You have successfully added new Promo Code {{formPromoCode.value.promoCode}} 
+                    </div>
+                  <div class="form-group">
+                    <button class="btn btn-primary">Generate Promo Code <span class="fa fa-plus"></span></button>
+                  </div>
+                </form>
+          </div>
+        </div>
+  </div>
+
+</div>
+</div>

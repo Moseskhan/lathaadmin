@@ -1,0 +1,111 @@
+
+
+     
+          
+        <div class="container">
+
+       
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Products</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{(product | async)?.productName}}</li>
+              </ol>
+            </nav>
+
+            <div class="row">
+              <div class="col-md-3 col-sm-12">
+                <h5>Quick Links</h5>
+                  <ul class="list-group">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Edit Product
+                        <span class="badge badge-primary badge-pill">14</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        View Products
+                        <span class="badge badge-primary badge-pill">2</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                       
+                        <span class="badge badge-primary badge-pill">1</span>
+                      </li>
+                    </ul>
+              </div>
+              <div class="col-md-9 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{(product | async)?.productName}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+
+               
+                  <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                      <div class="carousel-inner">
+                        <div  *ngFor="let url of photoUrls | async; let index = index"  class="carousel-item "  [class.active]="index == 0">
+                          <img class="d-block w-100" [src]="url.data.path" alt="First slide">
+                        </div>
+                        
+                      </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <h5>Product Description Here</h5>
+                    <p>
+                        {{(product | async)?.productDescription}}
+                    </p>
+                    <h5>Available Sizes</h5>
+                    <ul class="list-group" *ngFor="let sizes of (product | async)?.availableSizes">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                         {{sizes.unit}}
+                          <span class="badge badge-primary badge-pill">{{sizes.price}}</span>
+                        </li></ul>
+                       
+                          <div class="list-group">
+                              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                  <h5 class="mb-1">Product Display Price</h5>
+                                     <span class="badge badge-primary badge-pill">$ {{(product | async)?.displayPrice}}</span>
+                                </div>
+                                <p class="mb-1">This is the default price for this product</p>
+                                
+                                
+                              </a>
+                              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                  <h5 class="mb-1">Discount</h5>
+                                  
+                                </div>
+                                <p class="mb-1">A discount of {{(product | async)?.displayPrice}} % is given on the total Sales Price</p>
+                                <small class="text-muted" *ngIf="(product | async)?.discountAvailable==true">Available</small>
+                                <small class="text-muted" *ngIf="(product | async)?.discountAvailable==false">Available</small>
+                              </a>
+                              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                  <h5 class="mb-1">Product Ranking</h5>
+                                  <span class="badge badge-primary badge-pill">{{(product | async)?.ranking}} /10</span>
+                            
+                                </div>
+                                <p class="mb-1">This will be used in sorting the products by priority</p>
+                               
+                              </a>
+                              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                  <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Stock Available</h5>
+                                    <span class="badge badge-primary badge-pill">{{(product | async)?.unitsInStock}} Units</span>
+                              
+                                  </div>
+                                  <p class="mb-1">This will be used in sorting the products by priority</p>
+                                  <small class="text-muted" *ngIf="(product | async)?.productAvailable==true">Product Available For Sale</small>
+                                  <small class="text-muted" *ngIf="(product | async)?.productAvailable==false">Product Unavailable For Sale</small>
+                          
+                                </a>
+
+                            </div> 
+                  </div>
+
+                </div>
+
+
+            </div>
+               
+          </div>   
+                
+                
