@@ -30,6 +30,38 @@
                 </form>
           </div>
         </div>
+        <div class="card">
+          <div class="card-header">
+              Promo Codes
+          </div>
+          <div class="card-body">
+<table class="table-responsive table table-bordered">
+
+  <tr>
+    <th>
+     Code
+    </th>
+    <th>
+      Discounting Amount
+    </th>
+    <th>
+
+    </th>
+  </tr>
+  <tr *ngFor="let promoCode of promoCodes | async">
+    <td>
+{{promoCode.data.promoCode}}
+    </td>
+    <td>
+      {{promoCode.data.amount}}
+          </td>
+          <td>
+            <button (click)="deletePromoCode(promoCode.id)" class="btn btn-danger"><span class="fa fa-trash"></span></button>
+                </td>
+  </tr>
+</table>
+          </div>
+        </div>
   </div>
 
 </div>

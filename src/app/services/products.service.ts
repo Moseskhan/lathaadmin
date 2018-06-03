@@ -40,7 +40,7 @@ productCategories:any;
   constructor(private firestore: AngularFirestore ) { }
 categoryCollection=this.firestore.collection('ProductCategories');
 promoCodeCollection=this.firestore.collection('promoCodes');
-
+ordersCollection=this.firestore.collection('chargedOrders');
   getAllProducts(){
     this.productCollection=this.firestore.collection('products');
    this.products=this.productCollection.snapshotChanges().map(actions => {
@@ -183,6 +183,22 @@ updateCategory(docID, categoryName){
   else
   return false;
   
+  }
+  getOrders(){
+    return this.ordersCollection.snapshotChanges().map(actions => {
+    
+      return actions.map(a => {
+        if (a.payload.doc.exists==false){
+             return null;
+        }else{
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, data};
+        }
+       
+      });
+    
+    });
   }
 
 }

@@ -1,0 +1,76 @@
+<div class="container">
+<div class="card">
+<div class="card-body">
+  <h3>List of All Orders</h3>
+  <div class="row">
+<div class="col-md-6">
+<input placeholder="Search Here" #search (input)="searchOrder(search.value)" class="form-control">
+</div>
+<div class="col-md-6">
+  <button class="btn btn-primary"  (click)="searchOrder(search.value)">Search</button>
+</div>
+  </div>
+  <br><br>
+<table class="table table-responsive table-bordered">
+<tr>
+  <th>
+    Order ID
+  </th>
+  <th>
+    Customer Name
+  </th>
+  <th>
+    Customer Email
+  </th>
+  <th>
+    Total Amount
+  </th>
+  
+  <th>
+    Total Tax
+  </th>
+  <th>
+      Date
+    </th>
+  <th>
+    Payment Status
+  </th>
+</tr>
+<tr *ngFor="let order of sortedOrders">
+<td>
+  {{order.data.orderID}}
+</td>
+<td>
+  {{order.data.args.billing_name}}
+</td>
+<td>
+  {{order.data.token.email}}
+</td>
+<td>
+  {{(order.data.chargeDetails.amount/100) | currency}}
+</td>
+<td>
+  {{order.data.totalTax | currency}}
+</td>
+<td>
+    {{order.data.date | date}}
+  </td>
+<td>
+  <p *ngIf="order.data.chargeDetails.paid"><span class="badge badge-primary">Order Paid</span></p>
+ <p *ngIf="!order.data.chargeDetails.paid"><span class="badge badge-primary">Order not Paid</span></p>
+</td>
+<td>
+    <p *ngIf="order.data.shipmentStatus"><span class="badge badge-primary">Order Shipped</span></p>
+    <button *ngIf="!order.data.shipmentStatus" class="btn btn-danger" (click)="shipOrder(order.data.orderID,order.id)">Ship Order</button>
+  </td>
+<td>
+    <button  class="btn btn-primary" (click)="viewOrder(order.data.orderID,order.id)">View Order</button>
+    
+</td>
+</tr>
+</table>
+</div>
+
+</div>
+
+</div>

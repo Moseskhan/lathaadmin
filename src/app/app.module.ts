@@ -7,7 +7,7 @@ import { NgModule, Component } from '@angular/core';
 import {RouterModule} from '@angular/router'
 import {AngularFireModule} from 'angularfire2';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProductsComponent } from './products/products.component';
@@ -21,6 +21,7 @@ import { FileUploadComponent } from './uploadservice/file-upload/file-upload.com
 import {MatButtonModule, MatCheckboxModule, MatChipsModule} from '@angular/material';
 import { CategoriesComponent } from './categories/categories.component';
 import { PromoCodesComponent } from './promo-codes/promo-codes.component';
+import { OrdersComponent } from './orders/orders.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { PromoCodesComponent } from './promo-codes/promo-codes.component';
     FileUploadComponent,
    EditProductComponent,
    CategoriesComponent,
-   PromoCodesComponent
+   PromoCodesComponent,
+   OrdersComponent
     
    
   ],
@@ -55,7 +57,8 @@ import { PromoCodesComponent } from './promo-codes/promo-codes.component';
       {path: 'upload/:id', component: FileUploadComponent},
       {path: 'products/edit/:id', component: EditProductComponent},
       {path: 'categories', component: CategoriesComponent},
-      {path: 'generatePromoCodes', component: PromoCodesComponent}
+      {path: 'generatePromoCodes', component: PromoCodesComponent},
+      {path: 'orders', component: OrdersComponent}
     ])
     
   ],

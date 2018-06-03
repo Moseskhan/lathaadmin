@@ -1,3 +1,4 @@
+import { dialogs } from './../custom/dialogs';
 import { ProductsService } from './../services/products.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -9,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PromoCodesComponent implements OnInit {
 postPromoStatus:boolean;
+promoCodes:any;
   constructor(private productService: ProductsService) { }
 
   ngOnInit() {
+    this.promoCodes=this.productService.getPromoCodes();
   }
 formPromoCode=new FormGroup({
   promoCode: new FormControl(this.generateCoupon(),[Validators.required]),
@@ -46,5 +49,13 @@ this.postPromoStatus=true;
   }
 
 }
+}
+deletePromoCode(promoCodeID){
+  if(this.productService.deletePromoCode(promoCodeID)){
+    dialogs.showSweetDialogSuccess("Promo Code was deleted successfully");
+  }else{
+    dialogs.showSweetDialogFail("promoCode was not deleted, try again later")
+  }
+  
 }
 }
